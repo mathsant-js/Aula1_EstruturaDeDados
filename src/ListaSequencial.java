@@ -1,0 +1,68 @@
+public class ListaSequencial {
+    private Object[] vetor = new Object[4];
+    public int totalDeObjetos = 0;
+    int fim = 0;
+    int inicio = 0;
+
+    public boolean listaVazia() {
+        return (inicio == fim) && (fim == 0);
+    }
+
+    public boolean listaCheia() {
+        return totalDeObjetos == vetor.length;
+    }
+
+    public void adiciona(Object elemento) {
+        if (listaCheia()) {
+            System.out.println("A lista está cheia");
+        } else {
+            vetor[fim] = elemento;
+            fim++;
+            totalDeObjetos++;
+        }
+    }
+    
+    public void selecionarOndeAdicionar(Object elemento, int posicao) {
+        if (listaCheia()) {
+            System.out.println("Não há como adicionar mais itens na lista - Lista cheia");
+        } else {
+            for (int i = fim; fim < vetor.length; i++) {
+                vetor[i + 1] = vetor[i];
+            }
+            vetor[fim] = elemento;
+        }
+    }
+
+    public void remove() {
+        if (listaVazia()) {
+            System.out.println("Não há como remover itens - Lista está vazia!");
+        } else {
+            vetor[fim - 1] = 0;
+            fim--;
+            totalDeObjetos--;
+        }
+    }
+
+    public void selecionarOndeRemover(int posicao) {
+        if (listaVazia()) {
+            System.out.println("Não há como remover algum item - Lista vazia!");
+        } else if (posicao == vetor.length) {
+            System.out.println("A posição escolhida é maior que o limite da lista! - Selecione um número menor que " + vetor.length);
+        } else {
+            vetor[posicao] = 0;
+        }
+    }
+
+    public boolean contem(Object elemento) {
+        for (Object v: vetor) {
+            if (elemento == v) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int tamanho() {
+        return totalDeObjetos;
+    }
+}

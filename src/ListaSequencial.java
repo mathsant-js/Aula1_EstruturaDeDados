@@ -12,6 +12,10 @@ public class ListaSequencial {
         return totalDeObjetos == vetor.length;
     }
 
+    private boolean posicaoValida(int posicao) {
+        return (posicao >= 0) && (posicao < totalDeObjetos);
+    }
+
     public void adiciona(Object elemento) {
         if (listaCheia()) {
             System.out.println("A lista está cheia");
@@ -54,12 +58,34 @@ public class ListaSequencial {
     }
 
     public boolean contem(Object elemento) {
+        boolean valorRetorno = false;
         for (Object v: vetor) {
-            if (elemento == v) {
-                return true;
+            if (elemento.equals(v)) {
+                valorRetorno = true;
+                v = totalDeObjetos;
             }
         }
-        return false;
+        return valorRetorno;
+    } // Complexidade linear O(n)
+
+    // Usado para quando acaba o espaço do vetor
+    private void garantaEspaco() {
+        if (totalDeObjetos == vetor.length) {
+            Object[] novoVetor = new Object[vetor.length * 2];
+
+            // Transferir os elementos do vetor `vetor` para novoVetor
+            for (int i = 0; i < vetor.length; i++) {
+                novoVetor[i] = vetor[i];
+            }
+            vetor = novoVetor;
+        }
+    }
+
+    public Object getObject(int posicao) {
+        if (posicaoValida(posicao)) {
+            throw new IllegalArgumentException("Posicao Invalida");
+        }
+        return vetor[posicao];
     }
 
     public int tamanho() {

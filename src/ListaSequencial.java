@@ -18,7 +18,10 @@ public class ListaSequencial {
 
     public void adiciona(Object elemento) {
         if (listaCheia()) {
-            System.out.println("A lista está cheia");
+            garantaEspaco();
+            vetor[fim] = elemento;
+            fim++;
+            totalDeObjetos++;
         } else {
             vetor[fim] = elemento;
             fim++;
@@ -26,9 +29,13 @@ public class ListaSequencial {
         }
     }
     
-    public void selecionarOndeAdicionar(Object elemento, int posicao) {
+    public void adiciona(Object elemento, int posicao) {
         if (listaCheia()) {
-            System.out.println("Não há como adicionar mais itens na lista - Lista cheia");
+            garantaEspaco();
+            for (int i = fim; fim < vetor.length; i++) {
+                vetor[i + 1] = vetor[i];
+            }
+            vetor[fim] = elemento;
         } else {
             for (int i = fim; fim < vetor.length; i++) {
                 vetor[i + 1] = vetor[i];
